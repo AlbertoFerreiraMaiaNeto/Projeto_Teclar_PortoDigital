@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "776852734038",
+    "firebase_url": "https://teclarflutter-e3cc9.firebaseio.com",
+    "project_id": "teclarflutter-e3cc9",
+    "storage_bucket": "teclarflutter-e3cc9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776852734038:android:10c2952dd92a82aa9b7bf7",
+        "android_client_info": {
+          "package_name": "wakanda.com.material_splash_screen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776852734038-l39pcd5j50dt8ncmhobp4nthl3a84et3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "wakanda.com.material_splash_screen",
+            "certificate_hash": "b61d7fb077ae1748a8043868cebade6e0c9bfe94"
+          }
+        },
+        {
+          "client_id": "776852734038-vev47guo3flk8vshr8cvcefpuj5kpcnb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpUqNzJMfPlRVDNPw1XL_wyBMDcAc_RKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776852734038-vev47guo3flk8vshr8cvcefpuj5kpcnb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
