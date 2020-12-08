@@ -7,14 +7,24 @@ import 'package:material_splash_screen/ui_menu/alterarDados.dart';
 class Autentication extends StatefulWidget {
   String email;
   String senha;
+  bool val;
+
+  Autentication(bool val) {
+    this.val = val;
+  }
   @override
-  _AutenticationState createState() => _AutenticationState();
+  _AutenticationState createState() => _AutenticationState(val);
 }
 
 class _AutenticationState extends State<Autentication> {
   bool _exibirSenha = false;
   String _email;
   String _senha;
+  bool _val;
+
+  _AutenticationState(bool val) {
+    this._val = val;
+  }
 
   TextEditingController emailController = TextEditingController();
   TextEditingController senhaController = TextEditingController();
@@ -189,8 +199,11 @@ class _AutenticationState extends State<Autentication> {
                                   email: emailController.text,
                                   password: senhaController.text)
                               .then((firebaseUser) {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => AlterarDados()));
+                            if (_val == true) {
+                              Navigator.pushNamed(context, "/AlterarEmail");
+                            } else {
+                              Navigator.pushNamed(context, "/AlterarSenha");
+                            }
                           }).catchError((erro) {
                             showDialog(
                                 context: context,

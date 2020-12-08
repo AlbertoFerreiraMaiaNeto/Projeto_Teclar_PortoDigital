@@ -90,7 +90,7 @@ class _DadosAlteradosState extends State<DadosAlterados> {
               width: sizeWidth * 0.6,
               child: RaisedButton(
                 onPressed: () {
-                  Navigator.popUntil(context, ModalRoute.withName("/Menu"));
+                  Navigator.pushNamed(context, "/Menu");
                 },
                 textColor: Colors.white,
                 splashColor: Color(0xfffab611),

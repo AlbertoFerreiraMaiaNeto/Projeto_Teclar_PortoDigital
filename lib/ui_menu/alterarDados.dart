@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:material_splash_screen/entity/usuario.dart';
+import 'package:material_splash_screen/ui_menu/autentication.dart';
 
 class AlterarDados extends StatefulWidget {
   @override
@@ -24,21 +25,22 @@ class _AlterarDadosState extends State<AlterarDados> {
           builder: (_) => janelaPopUp(context, sizeWidth, sizeHeight));
     } else if (cont == 2) {
       Navigator.pushNamed(context, "/AlterarNome");
-    } else if (cont == 3) {
-      Navigator.pushNamed(context, "/AlterarCpf");
     } else if (cont == 4) {
-      Navigator.pushNamed(context, "/AlterarEmail");
+      showDialog(
+          context: context,
+          builder: (_) => janelaPopUp3(sizeWidth, sizeHeight, true));
     } else if (cont == 5) {
-      Navigator.pushNamed(context, "/AlterarSenha");
+      showDialog(
+          context: context,
+          builder: (_) => janelaPopUp3(sizeWidth, sizeHeight, false));
     }
   }
 
   File _imagem;
-  String _statusUpload = "Upload não iniciado";
-  String _urlImagemRecuperada = null;
+  String _urlImagemRecuperada;
 
   Future _recuperarImagem(BuildContext context, bool daCamera) async {
-    File imagemSelecionada = null;
+    File imagemSelecionada;
     if (daCamera) {
       // ? Da câmera
       final pickedFile = await picker.getImage(source: ImageSource.camera);
@@ -506,6 +508,95 @@ class _AlterarDadosState extends State<AlterarDados> {
                     color: Colors.white,
                     fontFamily: 'Open Sans Extra Bold',
                     fontSize: sizeWidth * 0.05,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  AlertDialog janelaPopUp3(double sizeWidth, double sizeHeight, bool x) {
+    return AlertDialog(
+      backgroundColor: Colors.white,
+      elevation: 24,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          side: BorderSide(color: Colors.black)),
+      title: Text(
+        "Aviso!",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Color.fromARGB(255, 93, 30, 132),
+          fontFamily: 'Open Sans Extra Bold',
+          fontSize: sizeWidth * 0.09,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      content: Text(
+        "Para alterar os dados, você terá que relizar login novamente\n você tem certeza?",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Color.fromARGB(255, 48, 48, 48),
+          fontFamily: 'Open Sans Extra Bold',
+          fontSize: sizeWidth * 0.06,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      actions: [
+        Row(
+          children: [
+            Container(
+              height: sizeHeight * 0.062,
+              width: sizeWidth * 0.28,
+              margin: EdgeInsets.only(
+                  right: sizeWidth * 0.11, bottom: sizeHeight * 0.01),
+              child: RaisedButton(
+                splashColor: Color(0xfffab611),
+                color: Color.fromARGB(255, 93, 30, 132),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                    side: BorderSide(color: Colors.black)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Não",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Open Sans Extra Bold',
+                    fontSize: sizeWidth * 0.08,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              height: sizeHeight * 0.062,
+              width: sizeWidth * 0.28,
+              margin: EdgeInsets.only(
+                  right: sizeWidth * 0.04, bottom: sizeHeight * 0.01),
+              child: RaisedButton(
+                color: Color.fromARGB(255, 93, 30, 132),
+                splashColor: Color(0xfffab611),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                    side: BorderSide(color: Colors.black)),
+                onPressed: () {
+                  FirebaseAuth auth = FirebaseAuth.instance;
+                  auth.signOut();
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Autentication(x)));
+                },
+                child: Text(
+                  "Sim",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Open Sans Extra Bold',
+                    fontSize: sizeWidth * 0.08,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
