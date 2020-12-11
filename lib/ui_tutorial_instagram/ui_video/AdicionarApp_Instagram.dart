@@ -283,6 +283,9 @@ class _AdicionarAPP_Video_InstagramState
                                         .updateData(toMapNotNull());
                                   }
                                 }
+                                salvar();
+                                  int total = await totalPontos(usuario);
+                                  updateDados(total);
                               },
                             ),
                           )
