@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:material_splash_screen/ui_login/google_auth.dart';
 import 'package:material_splash_screen/ui_login/login.dart';
 import 'package:material_splash_screen/ui_cadastro/cadastroVideo.dart';
 import 'package:material_splash_screen/ui_menu/1_Menu.dart';
@@ -12,8 +14,10 @@ import 'package:material_splash_screen/ui_menu/alterar_dados/alterarNome.dart';
 import 'package:material_splash_screen/ui_menu/alterar_dados/alterarSenha.dart';
 import 'package:material_splash_screen/ui_menu/gaveta.dart';
 import 'package:material_splash_screen/ui_menu/meuPerfil.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   //Firestore db = Firestore.instance;
   //db.collection("cursos").doc("Ifood").delete(); // ? Deletando dados
 
@@ -279,7 +283,7 @@ class _HomeState extends State<Home> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                            top: sizecard * 0.1, bottom: sizecard * 0.01),
+                            top: sizeWidth * 0.1, bottom: sizecard * 0.01),
                         child: Text(
                           "Seja bem-vindo!",
                           style: TextStyle(
@@ -290,25 +294,87 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Container(
+                      /* Container(
                           height: sizeHeight * 0.006,
                           width: sizeWidth * 0.15,
                           color: Color(0xfffab611)
                           //color: Color(0xff670099).withOpacity(0.69),
-                          ),
+                          ),*/
                       Padding(
-                        padding: EdgeInsets.only(top: sizecard * 0.2),
+                        padding: EdgeInsets.only(top: sizeWidth * 0.1),
                         child: Text(
-                          "Você já possui",
+                          "O que deseja fazer?",
                           style: TextStyle(
                               fontFamily: 'Open Sans Extra Bold',
                               color: Color.fromARGB(255, 48, 48, 48),
-                              fontSize: sizeWidth * 0.085,
+                              fontSize: sizeWidth * 0.065,
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Center(
+                      //? BOTOES MEU LOGIN E NAO TENHO CADASTRO ---------------------
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: sizeWidth * 0.100,
+                              right: sizeWidth * 0.100,
+                              top: sizeWidth * 0.1),
+                          child: Container(
+                            height: sizeHeight * 0.065,
+                            width: sizeWidth * 0.90,
+                            child: RaisedButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, "/Login");
+                              },
+                              textColor: Colors.white,
+                              splashColor: Color(0xfffab611),
+                              color: Color.fromARGB(255, 93, 30, 132),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  side: BorderSide(color: Colors.black)),
+                              child: Text(
+                                "MEU LOGIN",
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans Extra Bold',
+                                  fontSize: sizeWidth * 0.05,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: sizeWidth * 0.100,
+                              right: sizeWidth * 0.100,
+                              top: sizeWidth * 0.05),
+                          child: Container(
+                            height: sizeHeight * 0.065,
+                            width: sizeWidth * 0.90,
+                            child: RaisedButton(
+                              textColor: Colors.white,
+                              splashColor: Color(0xfffab611),
+                              color: Color.fromARGB(255, 93, 30, 132),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  side: BorderSide(color: Colors.black)),
+                              onPressed: () {
+                                /*showDialog(
+                                context: context,
+                                builder: (_) =>
+                                    janelaPopUp(sizeWidth, sizeHeight));*/
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => Cadastrar1()));
+                              },
+                              child: Text(
+                                "NÃO TENHO CADASTRO",
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans Extra Bold',
+                                  fontSize: sizeWidth * 0.05,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          )),
+                      /*Center(
                         child: Text(
                           "cadastro?",
                           style: TextStyle(
@@ -317,73 +383,56 @@ class _HomeState extends State<Home> {
                               fontSize: sizeWidth * 0.085,
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.bold),
-                        ),
-                      )
+                        ),*/
                     ],
                   )),
 
-              //BOTÕES "SIM" E "NÃO"
+              //?BOTÃO DO GOOGLE---------------------------------------------
               //-------------------------------------------------------------
 
               Row(
                 children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.only(
-                          left: sizeWidth * 0.06, top: sizeHeight * 0.025),
+                    padding: EdgeInsets.only(
+                        left: sizeWidth * 0.100,
+                        right: sizeWidth * 0.100,
+                        bottom: sizeWidth * 0.02),
+                    child: Container(
                       child: Container(
-                        height: sizeHeight * 0.085,
-                        width: sizeWidth * 0.35,
-                        child: RaisedButton(
-                          textColor: Colors.white,
-                          splashColor: Color(0xfffab611),
+                        height: sizeHeight * 0.08,
+                        width: sizeWidth * 0.75,
+                        child: RaisedButton.icon(
+                          onPressed: () {
+                            final provider = Provider.of<GoogleSignInProvider>(
+                                context,
+                                listen: false);
+                            if (provider.isSigninIn) {
+                              return Center(child: CircularProgressIndicator());
+                            } else {
+                              return provider.login();
+                            }
+                          },
                           color: Color.fromARGB(255, 93, 30, 132),
+                          splashColor: Color(0xfffab611),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0),
                               side: BorderSide(color: Colors.black)),
-                          onPressed: () {
-                            /*showDialog(
-                                context: context,
-                                builder: (_) =>
-                                    janelaPopUp(sizeWidth, sizeHeight));*/
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Cadastrar1()));
-                          },
-                          child: Text(
-                            "NÃO",
+                          icon: FaIcon(FontAwesomeIcons.google,
+                              color: Colors.yellow),
+                          label: Text(
+                            "ENTRAR COM GOOGLE",
                             style: TextStyle(
                               fontFamily: 'Open Sans Extra Bold',
-                              fontSize: sizeWidth * 0.08,
+                              color: Colors.white,
+                              fontSize: (sizeWidth * 0.65) * 0.07,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                      )),
-                  Padding(
-                      padding: EdgeInsets.only(
-                          left: sizeWidth * 0.185, top: sizeHeight * 0.025),
-                      child: Container(
-                        height: sizeHeight * 0.085,
-                        width: sizeWidth * 0.35,
-                        child: RaisedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, "/Login");
-                          },
-                          textColor: Colors.white,
-                          splashColor: Color(0xfffab611),
-                          color: Color.fromARGB(255, 93, 30, 132),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                              side: BorderSide(color: Colors.black)),
-                          child: Text(
-                            "SIM",
-                            style: TextStyle(
-                              fontFamily: 'Open Sans Extra Bold',
-                              fontSize: sizeWidth * 0.08,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ))
+                      ),
+                      padding: EdgeInsets.only(top: sizecard * 0.03),
+                    ),
+                  ),
                 ],
               ),
             ],
