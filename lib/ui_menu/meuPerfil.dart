@@ -561,10 +561,7 @@ class _MeuPerfilState extends State<MeuPerfil> {
                     width: sizeWidth * 0.4,
                     child: RaisedButton(
                       onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (_) =>
-                                janelaPopUp2(sizeWidth, sizeHeight));
+                        Navigator.pushNamed(context, "/AlterarDados");
                       },
                       textColor: Colors.white,
                       splashColor: Color(0xfffab611),
@@ -600,95 +597,6 @@ class _MeuPerfilState extends State<MeuPerfil> {
           ),
         ],
       ),
-    );
-  }
-
-  AlertDialog janelaPopUp2(double sizeWidth, double sizeHeight) {
-    return AlertDialog(
-      backgroundColor: Colors.white,
-      elevation: 24,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-          side: BorderSide(color: Colors.black)),
-      title: Text(
-        "Aviso!",
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Color.fromARGB(255, 93, 30, 132),
-          fontFamily: 'Open Sans Extra Bold',
-          fontSize: sizeWidth * 0.09,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      content: Text(
-        "Para alterar os dados, você terá que relizar login novamente\n você tem certeza?",
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Color.fromARGB(255, 48, 48, 48),
-          fontFamily: 'Open Sans Extra Bold',
-          fontSize: sizeWidth * 0.06,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      actions: [
-        Row(
-          children: [
-            Container(
-              height: sizeHeight * 0.062,
-              width: sizeWidth * 0.28,
-              margin: EdgeInsets.only(
-                  right: sizeWidth * 0.11, bottom: sizeHeight * 0.01),
-              child: RaisedButton(
-                splashColor: Color(0xfffab611),
-                color: Color.fromARGB(255, 93, 30, 132),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    side: BorderSide(color: Colors.black)),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(
-                  "Não",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Open Sans Extra Bold',
-                    fontSize: sizeWidth * 0.08,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              height: sizeHeight * 0.062,
-              width: sizeWidth * 0.28,
-              margin: EdgeInsets.only(
-                  right: sizeWidth * 0.04, bottom: sizeHeight * 0.01),
-              child: RaisedButton(
-                color: Color.fromARGB(255, 93, 30, 132),
-                splashColor: Color(0xfffab611),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                    side: BorderSide(color: Colors.black)),
-                onPressed: () {
-                  FirebaseAuth auth = FirebaseAuth.instance;
-                  auth.signOut();
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Autentication()));
-                },
-                child: Text(
-                  "Sim",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Open Sans Extra Bold',
-                    fontSize: sizeWidth * 0.08,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        )
-      ],
     );
   }
 }

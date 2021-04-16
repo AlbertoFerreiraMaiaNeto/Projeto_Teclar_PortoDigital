@@ -224,6 +224,8 @@ class _GavetaMenuState extends State<GavetaMenu> {
                                                 top: sizeHeight * 0.024,
                                                 left: sizeWidth * 0.05),
                                             child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Container(
                                                   margin: EdgeInsets.only(

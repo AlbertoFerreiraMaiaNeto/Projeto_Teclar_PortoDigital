@@ -42,8 +42,8 @@ class _DadosAlteradosState extends State<DadosAlterados> {
                     padding: EdgeInsets.only(
                         top: sizeCard * 0.15, bottom: sizeCard * 0.04),
                     child: Center(
-                      child: Image.asset(
-                        "images/idoso1.png",
+                      child: Image.network(
+                        "https://firebasestorage.googleapis.com/v0/b/teclarflutter-e3cc9.appspot.com/o/avatares%2Fidoso2.png?alt=media&token=05b6c274-8504-4170-809c-44ff32f00f6a",
                         fit: BoxFit.contain,
                         height: sizeHeight * 0.4,
                       ),
@@ -90,7 +90,7 @@ class _DadosAlteradosState extends State<DadosAlterados> {
               width: sizeWidth * 0.6,
               child: RaisedButton(
                 onPressed: () {
-                  Navigator.popUntil(context, ModalRoute.withName("/Menu"));
+                  Navigator.pushNamed(context, "/Menu");
                 },
                 textColor: Colors.white,
                 splashColor: Color(0xfffab611),
